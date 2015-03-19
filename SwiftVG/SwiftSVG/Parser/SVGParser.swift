@@ -26,13 +26,25 @@ class SVGParser: NSObject, NSXMLParserDelegate {
         }
     }
     
+    init(data:NSData) {
+        self.parser = NSXMLParser(data: data)
+    }
+    
     /// Parse the supplied SVG file and return an SVGVectorImage
     ///
     /// :returns: an SVGImageVector ready for display
     func parse() -> SVGVectorImage {
+        let (drawables, size) = coreParse()
+        return SVGVectorImage(drawables: drawables, size:size)
+    }
+    
+    /// Parse the supplied SVG file and return the components of an SVGVectorImage
+    ///
+    /// :returns: a tuple containing the SVGDrawable array and the size of the SVGVectorImage
+    func coreParse() -> ([SVGDrawable], CGSize) {
         parser?.delegate = self
         parser?.parse()
-        return SVGVectorImage(drawables: drawables, size:svgViewBox.size)
+        return (drawables, svgViewBox.size)
     }
     
     //MARK: Private variables and functions
@@ -89,6 +101,21 @@ class SVGParser: NSObject, NSXMLParserDelegate {
         return newString?.stringByReplacingOccurrencesOfString(")", withString: "", options: .allZeros, range: nil)
     }
     
+    /// Returns an array of points parsed out of a string in the format "x1,y1 x2,y2 x3,y3"
+    ///
+    /// :params: string the string to parse points out of
+    /// :returns: an array of CGPoint structs representing the points in the string
+    private func pointsFromPointString(string:String?) -> [CGPoint] {
+        if string == nil { return [] }
+        let pairs = string!.componentsSeparatedByString(" ") as [String]
+        return pairs.filter{ ($0.utf16Count > 0) }.map {
+            let numbers = $0.componentsSeparatedByString(",")
+            let x = (numbers[0] as NSString).floatValue
+            let y = (numbers[1] as NSString).floatValue
+            return CGPoint(x:CGFloat(x) - self.svgViewBox.origin.x, y:CGFloat(y) - self.svgViewBox.origin.y)
+        }
+    }
+    
     /// Processes a rectangle found during parsing.  If we're defining the <defs> for the document we'll just save the rect
     /// for later use.  If we're not currently defining <defs> then we'll interpret it as a rectangular path.
     ///
@@ -122,7 +149,6 @@ class SVGParser: NSObject, NSXMLParserDelegate {
             } else {
                 drawables.append(path)
             }
-            
         }
     }
     
@@ -150,15 +176,51 @@ class SVGParser: NSObject, NSXMLParserDelegate {
         }
     }
     
+    /// Adds a path in the shape of the polygon defined by attributeDict
+    ///
+    /// :param: attributeDict the attributes from the XML - currently "points", "fill", and "opacity"
+    private func addPolygon(attributeDict:[NSObject : AnyObject]) {
+        let points = pointsFromPointString(attributeDict["points"] as? String)
+
+        var bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(points[0])
+        for i in 1..<points.count {
+            bezierPath.addLineToPoint(points[i])
+        }
+        bezierPath.closePath()
+
+        
+        var fill:SVGFillable? = nil
+        if let attr = gradientIdOrHexFromAttribute(attributeDict["fill"] as? String){
+            fill = gradients[attr] ?? addColor(attr)
+        }
+        var opacity = CGFloat(1.0)
+        if let o = (attributeDict["opacity"] as? NSString)?.floatValue {
+            opacity = CGFloat(o)
+        }
+        let path = SVGPath(bezierPath: bezierPath, fill: fill, opacity: opacity)
+        if lastGroup != nil {
+            lastGroup?.addToGroup(path)
+        } else {
+            drawables.append(path)
+        }
+    }
+    
     /// Begins a new group, setting "lastGroup" to the newly created group
     private func beginGroup() {
-        lastGroup = SVGGroup()
+        let newGroup = SVGGroup()
+        if let lastGroup = lastGroup {
+            newGroup.addToGroup(lastGroup)
+        }
+        lastGroup = newGroup
     }
     
     /// Ends the current group and moves "lastGroup" up one level
     private func endGroup() {
         if let last = lastGroup {
-            drawables.append(last)
+            if last.group == nil {
+                drawables.append(last)
+            }
             lastGroup = last.group
         }
     }
@@ -172,6 +234,7 @@ class SVGParser: NSObject, NSXMLParserDelegate {
             case .SVG:
                 setViewBox(attributeDict)
             case .RadialGradient: lastGradient = SVGRadialGradient(attributeDict: attributeDict, viewBox:svgViewBox)
+            case .LinearGradient: lastGradient = SVGLinearGradient(attributeDict: attributeDict, viewBox:svgViewBox)
             case .Stop:
                 let offset = CGFloat((attributeDict["offset"] as NSString).floatValue)
                 if let color = addColor(attributeDict["style"] as? String){ lastGradient?.addStop(offset, color: color)}
@@ -183,6 +246,8 @@ class SVGParser: NSObject, NSXMLParserDelegate {
                 addPath(attributeDict)
             case .G:
                 beginGroup()
+            case .Polygon:
+                addPolygon(attributeDict)
             default: break
                 
             }
@@ -200,6 +265,13 @@ class SVGParser: NSObject, NSXMLParserDelegate {
                 } else {
                     println("We exited a gradient without having a last gradient - something went wrong.")
                 }
+            case .LinearGradient:
+                if let gradient = lastGradient {
+                    gradients[gradient.id] = gradient
+                    lastGradient = nil
+                } else {
+                    println("We exited a gradient without having a last gradient - something went wrong.")
+                }
             case .Defs:
                 definingDefs = false
             case .G:
@@ -210,6 +282,7 @@ class SVGParser: NSObject, NSXMLParserDelegate {
     }
     
     func parserDidEndDocument(parser: NSXMLParser!) {
+        
         parser.delegate = self
         self.parser = nil
     }
@@ -224,8 +297,10 @@ class SVGParser: NSObject, NSXMLParserDelegate {
         case Rect = "rect"
         case Use = "use"
         case RadialGradient = "radialGradient"
+        case LinearGradient = "linearGradient"
         case Stop = "stop"
         case Path = "path"
+        case Polygon = "polygon"
     }
     
 }

@@ -11,7 +11,7 @@ import UIKit
 /// An SVGPath is the most common SVGDrawable element in an SVGVectorImage
 /// it contains a bezier path and instructions for drawing it to the canvas
 /// with its draw() method
-class SVGPath: SVGGroupable {
+class SVGPath: SVGGroupable, Printable {
     
     var bezierPath:UIBezierPath // The bezier path to draw to the canvas
     var fill:SVGFillable?       // The fill for the bezier path - commonly
@@ -44,17 +44,18 @@ class SVGPath: SVGGroupable {
                 color.setFill()
             }
             bezierPath.fill()
-        } else if let gradient = fill?.asGradient() as? SVGRadialGradient {
+        } else if let gradient = fill?.asGradient() {
             let context = UIGraphicsGetCurrentContext()
             CGContextSaveGState(context)
             bezierPath.addClip()
-            CGContextDrawRadialGradient(context, gradient.CGGradientWithOpacity(opacity),
-                gradient.center, 0,
-                gradient.center, gradient.radius,
-                UInt32(kCGGradientDrawsBeforeStartLocation) | UInt32(kCGGradientDrawsAfterEndLocation))
+            gradient.drawGradientWithOpacity(opacity)
             CGContextRestoreGState(context)
         }
         
+    }
+    
+    var description:String{
+        return "[Path]"
     }
     
 }

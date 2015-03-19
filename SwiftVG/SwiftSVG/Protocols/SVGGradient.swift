@@ -16,8 +16,7 @@ protocol SVGGradient: SVGFillable {
     var stops:[GradientStop] { get } //a list of GradientStops
     func addStop(offset:CGFloat, color:UIColor) //Add a gradient stop with an offset and color
     
-    /// Implementation should return a CGGradientRef with colors modified according to opacity
-    func CGGradientWithOpacity(opacity:CGFloat) -> CGGradientRef
+    func drawGradientWithOpacity(opacity:CGFloat) //Should draw the gradient - call this after clipping with a bezier path
 }
 
 /// Structure defining a gradient stop - contains an offset and a color

@@ -9,7 +9,7 @@
 import UIKit
 
 /// an SVGGroup contains a set of SVGGroupable objects, which could be SVGPaths or SVGGroups.
-class SVGGroup: SVGGroupable {
+class SVGGroup: SVGGroupable, Printable {
     
     var group:SVGGroup? //The parent of this group, if any
     
@@ -43,6 +43,11 @@ class SVGGroup: SVGGroupable {
         var groupableDrawable = drawable
         drawables.append(groupableDrawable)
         groupableDrawable.group = self
+    }
+    
+    /// Prints the contents of the group
+    var description:String {
+        return "[Group \(drawables.count): \(drawables)]"
     }
     
     //MARK: Private variables and functions

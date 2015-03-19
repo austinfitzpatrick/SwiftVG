@@ -24,6 +24,11 @@ class SVGVectorImage: NSObject, SVGDrawable {
         super.init()
     }
     
+    init(vectorImage: SVGVectorImage){
+        self.drawables = vectorImage.drawables
+        self.size = vectorImage.size
+    }
+        
     //MARK: SVGDrawable
     
     /// Draw the SVGVectorImage to the screen
@@ -36,5 +41,4 @@ class SVGVectorImage: NSObject, SVGDrawable {
     //MARK: Private variables and functions
     
     private var drawables:[SVGDrawable]  //The list of drawables that makes up an SVGVectorImage
-    
 }

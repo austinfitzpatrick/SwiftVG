@@ -26,6 +26,8 @@
 		D944A0431ABB44150060A72A /* SVGVectorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0371ABB44150060A72A /* SVGVectorImage.swift */; };
 		D944A0441ABB44150060A72A /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0381ABB44150060A72A /* SVGView.swift */; };
 		D944A0461ABB44350060A72A /* example.svg in Resources */ = {isa = PBXBuildFile; fileRef = D944A0451ABB44350060A72A /* example.svg */; };
+		D979E8C91ABB95B600AC9E7C /* SVGLinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D979E8C81ABB95B600AC9E7C /* SVGLinearGradient.swift */; };
+		D9C2251C1ABB91130081EEC5 /* example2.svg in Resources */ = {isa = PBXBuildFile; fileRef = D9C2251B1ABB91130081EEC5 /* example2.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		D944A0381ABB44150060A72A /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
 		D944A0451ABB44350060A72A /* example.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = example.svg; sourceTree = "<group>"; };
 		D944A04C1ABB45270060A72A /* SwiftVG-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftVG-Bridging-Header.h"; sourceTree = "<group>"; };
+		D979E8C81ABB95B600AC9E7C /* SVGLinearGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGLinearGradient.swift; sourceTree = "<group>"; };
+		D9C2251B1ABB91130081EEC5 /* example2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = example2.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 				D944A0081ABB43DF0060A72A /* ExampleViewController.swift */,
 				D944A00A1ABB43DF0060A72A /* Main.storyboard */,
 				D944A0451ABB44350060A72A /* example.svg */,
+				D9C2251B1ABB91130081EEC5 /* example2.svg */,
 				D944A04C1ABB45270060A72A /* SwiftVG-Bridging-Header.h */,
 				D944A00D1ABB43DF0060A72A /* Images.xcassets */,
 				D944A00F1ABB43DF0060A72A /* LaunchScreen.xib */,
@@ -171,6 +176,7 @@
 				D944A02C1ABB44150060A72A /* SVGParser.swift */,
 				D944A02D1ABB44150060A72A /* SVGPath.swift */,
 				D944A02E1ABB44150060A72A /* SVGRadialGradient.swift */,
+				D979E8C81ABB95B600AC9E7C /* SVGLinearGradient.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C2251C1ABB91130081EEC5 /* example2.svg in Resources */,
 				D944A00C1ABB43DF0060A72A /* Main.storyboard in Resources */,
 				D944A0111ABB43DF0060A72A /* LaunchScreen.xib in Resources */,
 				D944A0461ABB44350060A72A /* example.svg in Resources */,
@@ -306,6 +313,7 @@
 			files = (
 				D944A03B1ABB44150060A72A /* SVGParser.swift in Sources */,
 				D944A0391ABB44150060A72A /* SKUBezierPath+SVG.m in Sources */,
+				D979E8C91ABB95B600AC9E7C /* SVGLinearGradient.swift in Sources */,
 				D944A0411ABB44150060A72A /* SVGGroupable.swift in Sources */,
 				D944A03D1ABB44150060A72A /* SVGRadialGradient.swift in Sources */,
 				D944A0091ABB43DF0060A72A /* ExampleViewController.swift in Sources */,
@@ -513,6 +521,7 @@
 				D944A0221ABB43DF0060A72A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D944A0231ABB43DF0060A72A /* Build configuration list for PBXNativeTarget "SwiftVGTests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +530,7 @@
 				D944A0251ABB43DF0060A72A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
