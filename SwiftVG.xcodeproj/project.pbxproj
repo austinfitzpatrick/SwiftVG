@@ -8,11 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		D944A0071ABB43DF0060A72A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0061ABB43DF0060A72A /* AppDelegate.swift */; };
-		D944A0091ABB43DF0060A72A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0081ABB43DF0060A72A /* ViewController.swift */; };
+		D944A0091ABB43DF0060A72A /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0081ABB43DF0060A72A /* ExampleViewController.swift */; };
 		D944A00C1ABB43DF0060A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D944A00A1ABB43DF0060A72A /* Main.storyboard */; };
 		D944A00E1ABB43DF0060A72A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D944A00D1ABB43DF0060A72A /* Images.xcassets */; };
 		D944A0111ABB43DF0060A72A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D944A00F1ABB43DF0060A72A /* LaunchScreen.xib */; };
 		D944A01D1ABB43DF0060A72A /* SwiftVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A01C1ABB43DF0060A72A /* SwiftVGTests.swift */; };
+		D944A0391ABB44150060A72A /* SKUBezierPath+SVG.m in Sources */ = {isa = PBXBuildFile; fileRef = D944A0291ABB44150060A72A /* SKUBezierPath+SVG.m */; };
+		D944A03A1ABB44150060A72A /* SVGGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A02B1ABB44150060A72A /* SVGGroup.swift */; };
+		D944A03B1ABB44150060A72A /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A02C1ABB44150060A72A /* SVGParser.swift */; };
+		D944A03C1ABB44150060A72A /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A02D1ABB44150060A72A /* SVGPath.swift */; };
+		D944A03D1ABB44150060A72A /* SVGRadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A02E1ABB44150060A72A /* SVGRadialGradient.swift */; };
+		D944A03E1ABB44150060A72A /* SVGDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0301ABB44150060A72A /* SVGDrawable.swift */; };
+		D944A03F1ABB44150060A72A /* SVGFillable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0311ABB44150060A72A /* SVGFillable.swift */; };
+		D944A0401ABB44150060A72A /* SVGGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0321ABB44150060A72A /* SVGGradient.swift */; };
+		D944A0411ABB44150060A72A /* SVGGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0331ABB44150060A72A /* SVGGroupable.swift */; };
+		D944A0421ABB44150060A72A /* UIColor+Hexadecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0351ABB44150060A72A /* UIColor+Hexadecimal.swift */; };
+		D944A0431ABB44150060A72A /* SVGVectorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0371ABB44150060A72A /* SVGVectorImage.swift */; };
+		D944A0441ABB44150060A72A /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0381ABB44150060A72A /* SVGView.swift */; };
+		D944A0461ABB44350060A72A /* example.svg in Resources */ = {isa = PBXBuildFile; fileRef = D944A0451ABB44350060A72A /* example.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +42,28 @@
 		D944A0011ABB43DF0060A72A /* SwiftVG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftVG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D944A0051ABB43DF0060A72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D944A0061ABB43DF0060A72A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D944A0081ABB43DF0060A72A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D944A0081ABB43DF0060A72A /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		D944A00B1ABB43DF0060A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D944A00D1ABB43DF0060A72A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D944A0101ABB43DF0060A72A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D944A0161ABB43DF0060A72A /* SwiftVGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftVGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D944A01B1ABB43DF0060A72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D944A01C1ABB43DF0060A72A /* SwiftVGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftVGTests.swift; sourceTree = "<group>"; };
+		D944A0281ABB44150060A72A /* SKUBezierPath+SVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKUBezierPath+SVG.h"; sourceTree = "<group>"; };
+		D944A0291ABB44150060A72A /* SKUBezierPath+SVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKUBezierPath+SVG.m"; sourceTree = "<group>"; };
+		D944A02B1ABB44150060A72A /* SVGGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGGroup.swift; sourceTree = "<group>"; };
+		D944A02C1ABB44150060A72A /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
+		D944A02D1ABB44150060A72A /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
+		D944A02E1ABB44150060A72A /* SVGRadialGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGRadialGradient.swift; sourceTree = "<group>"; };
+		D944A0301ABB44150060A72A /* SVGDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGDrawable.swift; sourceTree = "<group>"; };
+		D944A0311ABB44150060A72A /* SVGFillable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGFillable.swift; sourceTree = "<group>"; };
+		D944A0321ABB44150060A72A /* SVGGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGGradient.swift; sourceTree = "<group>"; };
+		D944A0331ABB44150060A72A /* SVGGroupable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGGroupable.swift; sourceTree = "<group>"; };
+		D944A0351ABB44150060A72A /* UIColor+Hexadecimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hexadecimal.swift"; sourceTree = "<group>"; };
+		D944A0371ABB44150060A72A /* SVGVectorImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGVectorImage.swift; sourceTree = "<group>"; };
+		D944A0381ABB44150060A72A /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
+		D944A0451ABB44350060A72A /* example.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = example.svg; sourceTree = "<group>"; };
+		D944A04C1ABB45270060A72A /* SwiftVG-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftVG-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +105,12 @@
 		D944A0031ABB43DF0060A72A /* SwiftVG */ = {
 			isa = PBXGroup;
 			children = (
+				D944A0261ABB44150060A72A /* SwiftSVG */,
 				D944A0061ABB43DF0060A72A /* AppDelegate.swift */,
-				D944A0081ABB43DF0060A72A /* ViewController.swift */,
+				D944A0081ABB43DF0060A72A /* ExampleViewController.swift */,
 				D944A00A1ABB43DF0060A72A /* Main.storyboard */,
+				D944A0451ABB44350060A72A /* example.svg */,
+				D944A04C1ABB45270060A72A /* SwiftVG-Bridging-Header.h */,
 				D944A00D1ABB43DF0060A72A /* Images.xcassets */,
 				D944A00F1ABB43DF0060A72A /* LaunchScreen.xib */,
 				D944A0041ABB43DF0060A72A /* Supporting Files */,
@@ -110,6 +141,66 @@
 				D944A01B1ABB43DF0060A72A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D944A0261ABB44150060A72A /* SwiftSVG */ = {
+			isa = PBXGroup;
+			children = (
+				D944A0271ABB44150060A72A /* Dependencies */,
+				D944A02A1ABB44150060A72A /* Parser */,
+				D944A02F1ABB44150060A72A /* Protocols */,
+				D944A0341ABB44150060A72A /* UIKit Categories */,
+				D944A0361ABB44150060A72A /* Views */,
+			);
+			path = SwiftSVG;
+			sourceTree = "<group>";
+		};
+		D944A0271ABB44150060A72A /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				D944A0281ABB44150060A72A /* SKUBezierPath+SVG.h */,
+				D944A0291ABB44150060A72A /* SKUBezierPath+SVG.m */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		D944A02A1ABB44150060A72A /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D944A02B1ABB44150060A72A /* SVGGroup.swift */,
+				D944A02C1ABB44150060A72A /* SVGParser.swift */,
+				D944A02D1ABB44150060A72A /* SVGPath.swift */,
+				D944A02E1ABB44150060A72A /* SVGRadialGradient.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		D944A02F1ABB44150060A72A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D944A0301ABB44150060A72A /* SVGDrawable.swift */,
+				D944A0311ABB44150060A72A /* SVGFillable.swift */,
+				D944A0321ABB44150060A72A /* SVGGradient.swift */,
+				D944A0331ABB44150060A72A /* SVGGroupable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D944A0341ABB44150060A72A /* UIKit Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D944A0351ABB44150060A72A /* UIColor+Hexadecimal.swift */,
+			);
+			path = "UIKit Categories";
+			sourceTree = "<group>";
+		};
+		D944A0361ABB44150060A72A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D944A0371ABB44150060A72A /* SVGVectorImage.swift */,
+				D944A0381ABB44150060A72A /* SVGView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +285,7 @@
 			files = (
 				D944A00C1ABB43DF0060A72A /* Main.storyboard in Resources */,
 				D944A0111ABB43DF0060A72A /* LaunchScreen.xib in Resources */,
+				D944A0461ABB44350060A72A /* example.svg in Resources */,
 				D944A00E1ABB43DF0060A72A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,8 +304,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D944A0091ABB43DF0060A72A /* ViewController.swift in Sources */,
+				D944A03B1ABB44150060A72A /* SVGParser.swift in Sources */,
+				D944A0391ABB44150060A72A /* SKUBezierPath+SVG.m in Sources */,
+				D944A0411ABB44150060A72A /* SVGGroupable.swift in Sources */,
+				D944A03D1ABB44150060A72A /* SVGRadialGradient.swift in Sources */,
+				D944A0091ABB43DF0060A72A /* ExampleViewController.swift in Sources */,
+				D944A03A1ABB44150060A72A /* SVGGroup.swift in Sources */,
 				D944A0071ABB43DF0060A72A /* AppDelegate.swift in Sources */,
+				D944A03F1ABB44150060A72A /* SVGFillable.swift in Sources */,
+				D944A03E1ABB44150060A72A /* SVGDrawable.swift in Sources */,
+				D944A0441ABB44150060A72A /* SVGView.swift in Sources */,
+				D944A0421ABB44150060A72A /* UIColor+Hexadecimal.swift in Sources */,
+				D944A0401ABB44150060A72A /* SVGGradient.swift in Sources */,
+				D944A0431ABB44150060A72A /* SVGVectorImage.swift in Sources */,
+				D944A03C1ABB44150060A72A /* SVGPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +397,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftVG/SwiftVG-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -329,6 +434,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftVG/SwiftVG-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
