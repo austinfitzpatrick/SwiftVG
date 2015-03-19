@@ -40,13 +40,31 @@ import UIKit
     
     /// Draw the SVGVectorImage to the screen - respecting the contentMode property
     override func drawRect(rect: CGRect) {
-        
-        if let svg = self.svg {        
+        if let svg = self.svg {
+            let targetSize = svg.size
             switch contentMode {
+            case .ScaleAspectFit:
+                let scaleFactor = min(bounds.width / targetSize.width, bounds.height / targetSize.height)
+                let scale = CGSizeMake(scaleFactor, scaleFactor)
+                let newSize = CGSize(width: targetSize.width * scale.width, height: targetSize.height * scale.height)
+                let xTranslation = (bounds.width - newSize.width) / 2.0
+                let yTranslation = (bounds.height - newSize.height) / 2.0
+                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale.width, scale.height)
+                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation / scale.width, yTranslation / scale.height)
+            case .ScaleAspectFill:
+                let scaleFactor = max(bounds.width / targetSize.width, bounds.height / targetSize.height)
+                let scale = CGSizeMake(scaleFactor, scaleFactor)
+                let newSize = CGSize(width: targetSize.width * scale.width, height: targetSize.height * scale.height)
+                let xTranslation = (bounds.width - newSize.width) / 2.0
+                let yTranslation = (bounds.height - newSize.height) / 2.0
+                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale.width, scale.height)
+                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation / scale.width, yTranslation / scale.height)
             case .ScaleToFill:
-                let xScale = frame.width / svg.size.width
-                let yScale = frame.height / svg.size.height
-                CGContextScaleCTM(UIGraphicsGetCurrentContext(), xScale, yScale)
+                let scaleFactor = CGSize(width:bounds.width / targetSize.width, height: bounds.height / targetSize.height)
+                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scaleFactor.width, scaleFactor.height)
+            case .Center:
+                let offset = CGPointMake((targetSize.width - bounds.width) / 2, (targetSize.height - bounds.height) / 2)
+                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), offset.x, offset.y)
             default: break
                 
             }
