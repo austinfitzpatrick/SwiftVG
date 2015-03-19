@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FDDF7593-6850-49C4-ABC7-6522089FB0E0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SwiftVG</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>789FB9C0CA14EE58AC6E326086BAE59C9C60A4F0</key>
+		<string>github.com:austinfitzpatrick/SwiftVG.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SwiftVG.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>789FB9C0CA14EE58AC6E326086BAE59C9C60A4F0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:austinfitzpatrick/SwiftVG.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>789FB9C0CA14EE58AC6E326086BAE59C9C60A4F0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>789FB9C0CA14EE58AC6E326086BAE59C9C60A4F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwiftVG</string>
+		</dict>
+	</array>
+</dict>
+</plist>

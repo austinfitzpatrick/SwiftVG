@@ -67,11 +67,17 @@ class SVGParser: NSObject, NSXMLParserDelegate {
     
     /// Parses a viewBox string and sets the view box of the SVG
     ///
-    /// :param: viewBox a string representing the view box in the format of "x y width height"
-    func setViewBox(viewBox:String){
-        let floats:[CGFloat] = viewBox.componentsSeparatedByString(" ").map { CGFloat(($0 as NSString).floatValue) }
-        if floats.count < 4 { svgViewBox = CGRectZero; println("An error has occured - the view box is zero") }
-        svgViewBox = CGRect(x: floats[0], y: floats[1], width: floats[2], height: floats[3])
+    /// :param: attributeDict the attribute dictionary from the SVG element form which to extract a view box
+    func setViewBox(attributeDict:[NSObject:AnyObject]){
+        if let viewBox = attributeDict["viewBox"] as? NSString {
+            let floats:[CGFloat] = viewBox.componentsSeparatedByString(" ").map { CGFloat(($0 as NSString).floatValue) }
+            if floats.count < 4 { svgViewBox = CGRectZero; println("An error has occured - the view box is zero") }
+            svgViewBox = CGRect(x: floats[0], y: floats[1], width: floats[2], height: floats[3])
+        } else {
+            let width = (attributeDict["width"] as NSString).floatValue
+            let height = (attributeDict["height"] as NSString).floatValue
+            svgViewBox = CGRect(x:0, y:0, width:CGFloat(width), height:CGFloat(height))
+        }
     }
     
     /// Returns either a gradient ID or hex string for a color from a string (strips "url(" from gradient references)
@@ -164,7 +170,7 @@ class SVGParser: NSObject, NSXMLParserDelegate {
         if let elementNameEnum = ElementName(rawValue: elementName) {
             switch elementNameEnum {
             case .SVG:
-                setViewBox(attributeDict["viewBox"] as NSString)
+                setViewBox(attributeDict)
             case .RadialGradient: lastGradient = SVGRadialGradient(attributeDict: attributeDict, viewBox:svgViewBox)
             case .Stop:
                 let offset = CGFloat((attributeDict["offset"] as NSString).floatValue)

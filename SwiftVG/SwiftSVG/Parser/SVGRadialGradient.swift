@@ -25,20 +25,24 @@ class SVGRadialGradient: SVGGradient {
     /// :param: gradientUnits the units of the gradient TODO
     /// :param: viewBox the viewBox - used to transform the center point
     /// :returns: an SVGRadialGradient with no stops.  Stops will need to be added with addStop(offset, color)
-    init(id:String, center:CGPoint, radius:CGFloat, gradientTransform:String, gradientUnits:String, viewBox:CGRect){
+    init(id:String, center:CGPoint, radius:CGFloat, gradientTransform:String?, gradientUnits:String, viewBox:CGRect){
         self.id = id
         self.center = center
         self.radius = radius
-        let scanner = NSScanner(string: gradientTransform)
-        scanner.scanString("matrix(", intoString: nil)
-        var a:Float = 0, b:Float = 0, c:Float = 0, d:Float = 0, tx:Float = 0, ty:Float = 0
-        scanner.scanFloat(&a)
-        scanner.scanFloat(&b)
-        scanner.scanFloat(&c)
-        scanner.scanFloat(&d)
-        scanner.scanFloat(&tx)
-        scanner.scanFloat(&ty)
-        transform = CGAffineTransformMake(CGFloat(a), CGFloat(b), CGFloat(c), CGFloat(d), CGFloat(tx), CGFloat(ty))
+        if let gradientTransformString = gradientTransform {
+            let scanner = NSScanner(string: gradientTransformString)
+            scanner.scanString("matrix(", intoString: nil)
+            var a:Float = 0, b:Float = 0, c:Float = 0, d:Float = 0, tx:Float = 0, ty:Float = 0
+            scanner.scanFloat(&a)
+            scanner.scanFloat(&b)
+            scanner.scanFloat(&c)
+            scanner.scanFloat(&d)
+            scanner.scanFloat(&tx)
+            scanner.scanFloat(&ty)
+            transform = CGAffineTransformMake(CGFloat(a), CGFloat(b), CGFloat(c), CGFloat(d), CGFloat(tx), CGFloat(ty))
+        } else {
+            transform = CGAffineTransformIdentity
+        }
         self.center = CGPointApplyAffineTransform(self.center, transform)
         self.center = CGPointMake(self.center.x - viewBox.origin.x, self.center.y - viewBox.origin.y)
         self.gradientUnits = gradientUnits
@@ -53,7 +57,7 @@ class SVGRadialGradient: SVGGradient {
         let id = attributeDict["id"] as String
         var center = CGPoint(x: CGFloat((attributeDict["cx"] as NSString).floatValue), y: CGFloat((attributeDict["cy"] as NSString).floatValue))
         let radius = CGFloat((attributeDict["r"] as NSString).floatValue)
-        let gradientTransform = attributeDict["gradientTransform"] as String
+        let gradientTransform = attributeDict["gradientTransform"] as? String
         let gradientUnits = attributeDict["gradientUnits"] as String
         self.init(id:id, center:center, radius:radius, gradientTransform:gradientTransform, gradientUnits:gradientUnits, viewBox:viewBox)
     }
