@@ -63,8 +63,10 @@ import UIKit
                 let scaleFactor = CGSize(width:bounds.width / targetSize.width, height: bounds.height / targetSize.height)
                 CGContextScaleCTM(UIGraphicsGetCurrentContext(), scaleFactor.width, scaleFactor.height)
             case .Center:
-                let offset = CGPointMake((targetSize.width - bounds.width) / 2, (targetSize.height - bounds.height) / 2)
-                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), offset.x, offset.y)
+                let newSize = targetSize
+                let xTranslation = (bounds.width - newSize.width) / 2.0
+                let yTranslation = (bounds.height - newSize.height) / 2.0
+                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation, yTranslation)
             default: break
                 
             }
