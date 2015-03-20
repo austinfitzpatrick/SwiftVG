@@ -32,7 +32,7 @@ Use `SVGVectorImage` where you would normally use `UIImage` and use `SVGView` wh
 
 ### What if my SVG isn't in the bundle?
 
-Instantiate our SVGVectorImage from NSData or a file path that could point anywhere.
+Instantiate your SVGVectorImage from NSData or a file path that could point anywhere.
 
     //load from data
     let data:NSData = /* data from somewhere - maybe the internet? */
