@@ -32,6 +32,9 @@
                             <constraint firstItem="jFn-Mp-UAg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="ufi-CP-ZGU"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="svgView" destination="jFn-Mp-UAg" id="97y-uW-NyY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

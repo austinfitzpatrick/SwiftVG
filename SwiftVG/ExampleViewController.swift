@@ -10,14 +10,19 @@ import UIKit
 
 class ExampleViewController: UIViewController {
 
+    @IBOutlet private var svgView:SVGView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        svgView.vectorImage?.replaceColor(UIColor.blackColor(), withColor: UIColor.whiteColor(), includeGradients: true)
+        svgView.setNeedsDisplay()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
 
 

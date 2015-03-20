@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// an SVGGroup contains a set of SVGGroupable objects, which could be SVGPaths or SVGGroups.
-class SVGGroup: SVGGroupable, Printable {
+/// an SVGGroup contains a set of SVGDrawable objects, which could be SVGPaths or SVGGroups.
+class SVGGroup: SVGDrawable, Printable {
     
     var group:SVGGroup? //The parent of this group, if any
     
@@ -24,7 +24,7 @@ class SVGGroup: SVGGroupable, Printable {
     /// 
     /// :param: drawables the drawables to populate the group with
     /// :returns: an SVGGroup pre-populated with drawables
-    init(drawables:[SVGGroupable]) {
+    init(drawables:[SVGDrawable]) {
         self.drawables = drawables
     }
     
@@ -35,11 +35,11 @@ class SVGGroup: SVGGroupable, Printable {
         }
     }
     
-    /// Adds an SVGGroupable (SVGDrawable) to the group - and sets that SVGGroupable's group property
+    /// Adds an SVGDrawable (SVGDrawable) to the group - and sets that SVGDrawable's group property
     /// to point at this SVGGroup
     ///
-    /// :param: drawable an SVGGroupable/SVGDrawable to add to this group
-    func addToGroup(drawable:SVGGroupable) {
+    /// :param: drawable an SVGDrawable/SVGDrawable to add to this group
+    func addToGroup(drawable:SVGDrawable) {
         var groupableDrawable = drawable
         drawables.append(groupableDrawable)
         groupableDrawable.group = self
@@ -52,6 +52,6 @@ class SVGGroup: SVGGroupable, Printable {
     
     //MARK: Private variables and functions
     
-    private var drawables:[SVGGroupable] //The list of drawables (which are themselves groupable) in this group
+    internal var drawables:[SVGDrawable] //The list of drawables (which are themselves groupable) in this group
     
 }

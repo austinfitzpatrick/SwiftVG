@@ -11,7 +11,7 @@ import UIKit
 /// An SVGPath is the most common SVGDrawable element in an SVGVectorImage
 /// it contains a bezier path and instructions for drawing it to the canvas
 /// with its draw() method
-class SVGPath: SVGGroupable, Printable {
+class SVGPath: SVGDrawable, Printable {
     
     var bezierPath:UIBezierPath // The bezier path to draw to the canvas
     var fill:SVGFillable?       // The fill for the bezier path - commonly

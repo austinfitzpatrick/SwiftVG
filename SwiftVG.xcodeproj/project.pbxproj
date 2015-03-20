@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D920CA0B1ABC88C600C5E524 /* SVGVectorImage+ColorReplacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920CA0A1ABC88C600C5E524 /* SVGVectorImage+ColorReplacement.swift */; };
 		D944A0071ABB43DF0060A72A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0061ABB43DF0060A72A /* AppDelegate.swift */; };
 		D944A0091ABB43DF0060A72A /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0081ABB43DF0060A72A /* ExampleViewController.swift */; };
 		D944A00C1ABB43DF0060A72A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D944A00A1ABB43DF0060A72A /* Main.storyboard */; };
@@ -21,7 +22,6 @@
 		D944A03E1ABB44150060A72A /* SVGDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0301ABB44150060A72A /* SVGDrawable.swift */; };
 		D944A03F1ABB44150060A72A /* SVGFillable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0311ABB44150060A72A /* SVGFillable.swift */; };
 		D944A0401ABB44150060A72A /* SVGGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0321ABB44150060A72A /* SVGGradient.swift */; };
-		D944A0411ABB44150060A72A /* SVGGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0331ABB44150060A72A /* SVGGroupable.swift */; };
 		D944A0421ABB44150060A72A /* UIColor+Hexadecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0351ABB44150060A72A /* UIColor+Hexadecimal.swift */; };
 		D944A0431ABB44150060A72A /* SVGVectorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0371ABB44150060A72A /* SVGVectorImage.swift */; };
 		D944A0441ABB44150060A72A /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944A0381ABB44150060A72A /* SVGView.swift */; };
@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D920CA0A1ABC88C600C5E524 /* SVGVectorImage+ColorReplacement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SVGVectorImage+ColorReplacement.swift"; path = "SVGVectorImage Categories/SVGVectorImage+ColorReplacement.swift"; sourceTree = "<group>"; };
 		D944A0011ABB43DF0060A72A /* SwiftVG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftVG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D944A0051ABB43DF0060A72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D944A0061ABB43DF0060A72A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +62,6 @@
 		D944A0301ABB44150060A72A /* SVGDrawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGDrawable.swift; sourceTree = "<group>"; };
 		D944A0311ABB44150060A72A /* SVGFillable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGFillable.swift; sourceTree = "<group>"; };
 		D944A0321ABB44150060A72A /* SVGGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGGradient.swift; sourceTree = "<group>"; };
-		D944A0331ABB44150060A72A /* SVGGroupable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGGroupable.swift; sourceTree = "<group>"; };
 		D944A0351ABB44150060A72A /* UIColor+Hexadecimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hexadecimal.swift"; sourceTree = "<group>"; };
 		D944A0371ABB44150060A72A /* SVGVectorImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGVectorImage.swift; sourceTree = "<group>"; };
 		D944A0381ABB44150060A72A /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
@@ -90,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D920CA091ABC88B100C5E524 /* SVGVectorImage Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D920CA0A1ABC88C600C5E524 /* SVGVectorImage+ColorReplacement.swift */,
+			);
+			name = "SVGVectorImage Categories";
+			sourceTree = "<group>";
+		};
 		D9449FF81ABB43DF0060A72A = {
 			isa = PBXGroup;
 			children = (
@@ -190,7 +198,6 @@
 				D944A0301ABB44150060A72A /* SVGDrawable.swift */,
 				D944A0311ABB44150060A72A /* SVGFillable.swift */,
 				D944A0321ABB44150060A72A /* SVGGradient.swift */,
-				D944A0331ABB44150060A72A /* SVGGroupable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 		D944A0361ABB44150060A72A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D920CA091ABC88B100C5E524 /* SVGVectorImage Categories */,
 				D944A0371ABB44150060A72A /* SVGVectorImage.swift */,
 				D944A0381ABB44150060A72A /* SVGView.swift */,
 			);
@@ -317,7 +325,6 @@
 				D944A03B1ABB44150060A72A /* SVGParser.swift in Sources */,
 				D944A0391ABB44150060A72A /* SKUBezierPath+SVG.m in Sources */,
 				D979E8C91ABB95B600AC9E7C /* SVGLinearGradient.swift in Sources */,
-				D944A0411ABB44150060A72A /* SVGGroupable.swift in Sources */,
 				D944A03D1ABB44150060A72A /* SVGRadialGradient.swift in Sources */,
 				D944A0091ABB43DF0060A72A /* ExampleViewController.swift in Sources */,
 				D944A03A1ABB44150060A72A /* SVGGroup.swift in Sources */,
@@ -325,6 +332,7 @@
 				D944A03F1ABB44150060A72A /* SVGFillable.swift in Sources */,
 				D970E5251ABBC86000164F88 /* SVGBezierBuilder.swift in Sources */,
 				D944A03E1ABB44150060A72A /* SVGDrawable.swift in Sources */,
+				D920CA0B1ABC88C600C5E524 /* SVGVectorImage+ColorReplacement.swift in Sources */,
 				D944A0441ABB44150060A72A /* SVGView.swift in Sources */,
 				D944A0421ABB44150060A72A /* UIColor+Hexadecimal.swift in Sources */,
 				D944A0401ABB44150060A72A /* SVGGradient.swift in Sources */,

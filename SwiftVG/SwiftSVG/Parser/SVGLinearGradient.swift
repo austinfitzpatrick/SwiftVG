@@ -64,6 +64,15 @@ class SVGLinearGradient: SVGGradient {
         self.init(id:id, startPoint:startPoint, endPoint:endPoint, gradientTransform:gradientTransform, gradientUnits:gradientUnits, viewBox:viewBox)
     }
     
+    /// Adds a Stop to the gradient - a Gradient is made up of several stops
+    ///
+    /// :param: offset the offset location of the stop
+    /// :color: the color to blend from/towards at this stop
+    func addStop(offset:CGFloat, color:UIColor){
+        stops.append(GradientStop(offset: offset, color: color))
+    }
+    
+    
     /// Draws the gradient to the current context
     ///
     /// :param: opacity modify the colors by adjusting opacity
@@ -84,12 +93,13 @@ class SVGLinearGradient: SVGGradient {
         }
     }
     
-    /// Adds a Stop to the gradient - a Gradient is made up of several stops
+    /// Removes a stop previously added to the gradient.
     ///
-    /// :param: offset the offset location of the stop
-    /// :color: the color to blend from/towards at this stop
-    func addStop(offset:CGFloat, color:UIColor){
-        stops.append(GradientStop(offset: offset, color: color))
+    /// :param: stop The stop to remove
+    internal func removeStop(stop: GradientStop) {
+        if let index = find(stops, stop){
+            stops.removeAtIndex(index)
+        }
     }
     
     //MARK: SVGFillable

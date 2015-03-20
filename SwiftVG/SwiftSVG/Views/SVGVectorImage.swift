@@ -9,7 +9,7 @@
 import UIKit
 
 /// An SVGVectorImage is used by a SVGView to display an SVG to the screen.
-class SVGVectorImage: NSObject, SVGDrawable {
+class SVGVectorImage: SVGGroup {
 
     private(set) var size:CGSize //the size of the SVG's at "100%"
     
@@ -19,9 +19,8 @@ class SVGVectorImage: NSObject, SVGDrawable {
     /// :param: size The size of the vector image at "100%"
     /// :returns: An SVGVectorImage ready for display in an SVGView
     init(drawables:[SVGDrawable], size:CGSize){
-        self.drawables = drawables
         self.size = size
-        super.init()
+        super.init(drawables:drawables)
     }
     
     /// initializes an SVGVectorImage with the contents of another SVGVectorImage
@@ -29,8 +28,8 @@ class SVGVectorImage: NSObject, SVGDrawable {
     /// :param: vectorImage another vector image to take the contents of
     /// :returns: an SVGVectorImage ready for display in an SVGView
     init(vectorImage: SVGVectorImage){
-        self.drawables = vectorImage.drawables
         self.size = vectorImage.size
+        super.init(drawables:vectorImage.drawables)
     }
     
     /// Initializes an SVGVectorImage with the contents of the file at the
@@ -66,17 +65,5 @@ class SVGVectorImage: NSObject, SVGDrawable {
             return nil
         }
     }
-        
-    //MARK: SVGDrawable
     
-    /// Draw the SVGVectorImage to the screen
-    func draw(){
-        for drawable in drawables {
-            drawable.draw()
-        }
-    }
-    
-    //MARK: Private variables and functions
-    
-    private var drawables:[SVGDrawable]  //The list of drawables that makes up an SVGVectorImage
 }

@@ -15,12 +15,16 @@ protocol SVGGradient: SVGFillable {
     var id:String { get }   //an ID for gradient lookup
     var stops:[GradientStop] { get } //a list of GradientStops
     func addStop(offset:CGFloat, color:UIColor) //Add a gradient stop with an offset and color
-    
+    func removeStop(stop:GradientStop)
     func drawGradientWithOpacity(opacity:CGFloat) //Should draw the gradient - call this after clipping with a bezier path
 }
 
 /// Structure defining a gradient stop - contains an offset and a color
-struct GradientStop{
+struct GradientStop: Equatable{
     var offset:CGFloat
     var color:UIColor
+}
+
+func ==(lhs:GradientStop, rhs:GradientStop) -> Bool{
+    return lhs.offset == rhs.offset && lhs.color == rhs.color
 }

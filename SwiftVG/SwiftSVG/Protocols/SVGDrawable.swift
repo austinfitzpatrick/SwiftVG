@@ -12,4 +12,5 @@ import UIKit
 // An SVGDrawable can be drawn to the screen.  To conform a type must implement one method, draw()
 protocol SVGDrawable {
     func draw() //Draw the SVGDrawable to the screen
+    var group:SVGGroup? { get set } //The parent group of this SVGDrawable
 }

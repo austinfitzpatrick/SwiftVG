@@ -97,6 +97,15 @@ class SVGRadialGradient: SVGGradient {
         }
     }
     
+    /// Removes a stop previously added to the gradient.
+    ///
+    /// :param: stop The stop to remove
+    internal func removeStop(stop: GradientStop) {
+        if let index = find(stops, stop){
+            stops.removeAtIndex(index)
+        }
+    }
+    
     //MARK: SVGFillable
     
     /// Returns a fillable as a gradient optional
