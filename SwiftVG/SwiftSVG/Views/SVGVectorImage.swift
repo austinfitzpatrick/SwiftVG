@@ -24,9 +24,47 @@ class SVGVectorImage: NSObject, SVGDrawable {
         super.init()
     }
     
+    /// initializes an SVGVectorImage with the contents of another SVGVectorImage
+    ///
+    /// :param: vectorImage another vector image to take the contents of
+    /// :returns: an SVGVectorImage ready for display in an SVGView
     init(vectorImage: SVGVectorImage){
         self.drawables = vectorImage.drawables
         self.size = vectorImage.size
+    }
+    
+    /// Initializes an SVGVectorImage with the contents of the file at the
+    /// given path
+    ///
+    /// :param: path A file path to the SVG file
+    /// :returns: an SVGVectorImage ready for display in an SVGView
+    convenience init(path: String) {
+        let (drawables, size) = SVGParser(path: path).coreParse()
+        self.init(drawables: drawables, size: size)
+    }
+    
+    /// Initializes an SVGVectorImage with the data provided (should be an XML String)
+    ///
+    /// :param: path A file path to the SVG file
+    /// :returns: an SVGVectorImage ready for display in an SVGView
+    convenience init(data:NSData) {
+        let (drawables, size) = SVGParser(data: data).coreParse()
+        self.init(drawables: drawables, size: size)
+    }
+    
+    /// Optionally initialies an SVGVectorImage with the given name in the main bundle
+    ///
+    /// :param: name The name of the vector image file (without the .svg extension)
+    /// :returns: an SVGVectorImage ready for display in an SVGView or nil if no svg exists
+    ///           at the given path
+    convenience init?(named name: String){
+        if let path = NSBundle.mainBundle().pathForResource(name, ofType: "svg"){
+            let vector = SVGParser(path: path).parse()
+            self.init(vectorImage: vector)
+        } else {
+            self.init(drawables:[], size:CGSizeZero)
+            return nil
+        }
     }
         
     //MARK: SVGDrawable

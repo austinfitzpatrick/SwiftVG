@@ -13,8 +13,13 @@ import UIKit
     
     @IBInspectable var svgName:String?  // The name of the SVG - mostly for interface builder
         { didSet { svgNameChanged() } }
-    var svg:SVGVectorImage?             // The vector image to draw to the screen
+    var vectorImage:SVGVectorImage?             // The vector image to draw to the screen
         { didSet { setNeedsDisplay() } }
+    
+    convenience init(vectorImage:SVGVectorImage){
+        self.init(frame:CGRect(x: 0, y: 0, width: vectorImage.size.width, height: vectorImage.size.height))
+        self.vectorImage = vectorImage
+    }
     
     //MARK: Lifecycle
     override func awakeFromNib() {
@@ -31,16 +36,16 @@ import UIKit
         #endif
         if let path = bundle.pathForResource(svgName, ofType: "svg") {
             let parser = SVGParser(path: path)
-            svg = parser.parse()
+            vectorImage = parser.parse()
         } else {
-            svg = nil
+            vectorImage = nil
         }
 
     }
     
     /// Draw the SVGVectorImage to the screen - respecting the contentMode property
     override func drawRect(rect: CGRect) {
-        if let svg = self.svg {
+        if let svg = self.vectorImage {
             let targetSize = svg.size
             switch contentMode {
             case .ScaleAspectFit:
@@ -79,4 +84,5 @@ import UIKit
         svgNameChanged()
         setNeedsDisplay()
     }
+
 }
