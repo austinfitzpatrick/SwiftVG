@@ -16,8 +16,8 @@ import UIKit
     var vectorImage:SVGVectorImage?             // The vector image to draw to the screen
         { didSet { setNeedsDisplay() } }
     
-    convenience init(vectorImage:SVGVectorImage){
-        self.init(frame:CGRect(x: 0, y: 0, width: vectorImage.size.width, height: vectorImage.size.height))
+    convenience init(vectorImage:SVGVectorImage?){
+        self.init(frame:CGRect(x: 0, y: 0, width: vectorImage?.size.width ?? 0, height: vectorImage?.size.height ?? 0))
         self.vectorImage = vectorImage
     }
     

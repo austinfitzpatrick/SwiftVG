@@ -15,6 +15,14 @@ extension UIColor {
     /// :param: hexString the string to parse for a hex color
     /// :returns: the UIColor or nil if parsing fails
     convenience init?(hexString:String) {
+        if hexString == "#FFFFFF" {
+            self.init(white: 1, alpha: 1)
+            return
+        }
+        if hexString == "#000000" {
+            self.init(white: 0, alpha: 1)
+            return
+        }
         let charset = NSCharacterSet(charactersInString: "#0123456789ABCDEF")
         var rgbValue:UInt32 = 0
         let scanner = NSScanner(string: hexString)
