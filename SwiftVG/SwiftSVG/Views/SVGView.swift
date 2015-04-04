@@ -20,6 +20,7 @@ import UIKit
         self.init(frame:CGRect(x: 0, y: 0, width: vectorImage?.size.width ?? 0, height: vectorImage?.size.height ?? 0))
         self.vectorImage = vectorImage
     }
+
     
     //MARK: Lifecycle
     override func awakeFromNib() {
@@ -45,36 +46,13 @@ import UIKit
     
     /// Draw the SVGVectorImage to the screen - respecting the contentMode property
     override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
         if let svg = self.vectorImage {
-            let targetSize = svg.size
-            switch contentMode {
-            case .ScaleAspectFit:
-                let scaleFactor = min(bounds.width / targetSize.width, bounds.height / targetSize.height)
-                let scale = CGSizeMake(scaleFactor, scaleFactor)
-                let newSize = CGSize(width: targetSize.width * scale.width, height: targetSize.height * scale.height)
-                let xTranslation = (bounds.width - newSize.width) / 2.0
-                let yTranslation = (bounds.height - newSize.height) / 2.0
-                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale.width, scale.height)
-                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation / scale.width, yTranslation / scale.height)
-            case .ScaleAspectFill:
-                let scaleFactor = max(bounds.width / targetSize.width, bounds.height / targetSize.height)
-                let scale = CGSizeMake(scaleFactor, scaleFactor)
-                let newSize = CGSize(width: targetSize.width * scale.width, height: targetSize.height * scale.height)
-                let xTranslation = (bounds.width - newSize.width) / 2.0
-                let yTranslation = (bounds.height - newSize.height) / 2.0
-                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale.width, scale.height)
-                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation / scale.width, yTranslation / scale.height)
-            case .ScaleToFill:
-                let scaleFactor = CGSize(width:bounds.width / targetSize.width, height: bounds.height / targetSize.height)
-                CGContextScaleCTM(UIGraphicsGetCurrentContext(), scaleFactor.width, scaleFactor.height)
-            case .Center:
-                let newSize = targetSize
-                let xTranslation = (bounds.width - newSize.width) / 2.0
-                let yTranslation = (bounds.height - newSize.height) / 2.0
-                CGContextTranslateCTM(UIGraphicsGetCurrentContext(), xTranslation, yTranslation)
-            default: break
-                
-            }
+            let context = UIGraphicsGetCurrentContext()
+            let translation = svg.translationWithTargetSize(rect.size, contentMode: contentMode)
+            let scale = svg.scaleWithTargetSize(rect.size, contentMode: contentMode)
+            CGContextScaleCTM(context, scale.width, scale.height)
+            CGContextTranslateCTM(context, translation.x / scale.width, translation.y / scale.height)
             svg.draw()
         }
     }
@@ -84,5 +62,5 @@ import UIKit
         svgNameChanged()
         setNeedsDisplay()
     }
-
+    
 }

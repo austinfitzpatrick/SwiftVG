@@ -33,7 +33,7 @@ extension SVGPath: SVGColorReplaceable {
                 for stop in fillGradient.stops {
                     if stop.color == color {
                         fillGradient.removeStop(stop)
-                        fillGradient.addStop(stop.offset, color: replacement)
+                        fillGradient.addStop(stop.offset, color: replacement, opacity: 1.0)
                     }
                 }
             }

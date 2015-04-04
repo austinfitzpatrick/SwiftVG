@@ -14,9 +14,6 @@ class ExampleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        svgView.vectorImage?.replaceColor(UIColor.blackColor(), withColor: UIColor.whiteColor(), includeGradients: true)
-        svgView.setNeedsDisplay()
         
     }
 

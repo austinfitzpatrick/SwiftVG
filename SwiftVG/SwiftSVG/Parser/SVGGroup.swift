@@ -12,6 +12,11 @@ import UIKit
 class SVGGroup: SVGDrawable, Printable {
     
     var group:SVGGroup? //The parent of this group, if any
+    var clippingPath:UIBezierPath? //the clipping path for this group, if any
+    var identifier:String?
+    
+    var onWillDraw:(()->())?
+    var onDidDraw:(()->())?
     
     /// Initialies and empty SVGGroup
     ///
@@ -27,12 +32,19 @@ class SVGGroup: SVGDrawable, Printable {
     init(drawables:[SVGDrawable]) {
         self.drawables = drawables
     }
-    
+
     /// Draws the SVGGroup to the screen by iterating through its contained SVGDrawables
     func draw() {
+        onWillDraw?()
+        CGContextSaveGState(UIGraphicsGetCurrentContext())
+        if let clippingPath = clippingPath {
+            clippingPath.addClip()
+        }
         for drawable in drawables {
             drawable.draw()
         }
+        CGContextRestoreGState(UIGraphicsGetCurrentContext())
+        onDidDraw?()
     }
     
     /// Adds an SVGDrawable (SVGDrawable) to the group - and sets that SVGDrawable's group property
@@ -40,14 +52,14 @@ class SVGGroup: SVGDrawable, Printable {
     ///
     /// :param: drawable an SVGDrawable/SVGDrawable to add to this group
     func addToGroup(drawable:SVGDrawable) {
-        var groupableDrawable = drawable
-        drawables.append(groupableDrawable)
-        groupableDrawable.group = self
+        var groupable = drawable
+        drawables.append(groupable)
+        groupable.group = self
     }
     
     /// Prints the contents of the group
     var description:String {
-        return "[Group \(drawables.count): \(drawables)]"
+        return "{Group<\(drawables.count)> (\(clippingPath != nil)): \(drawables)}"
     }
     
     //MARK: Private variables and functions

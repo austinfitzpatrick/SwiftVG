@@ -18,7 +18,8 @@ typedef enum : NSInteger {
 @protocol SVGCommand <NSObject>
 - (void)processCommandString:(NSString *)commandString
              withPrevCommand:(NSString *)prevCommand
-                     forPath:(SKUBezierPath *)path;
+                     forPath:(SKUBezierPath *)path
+           factoryIdentifier:(NSString*) identifier;
 @end
 
 #pragma mark ----------SVGCommandImpl----------
@@ -27,7 +28,8 @@ typedef enum : NSInteger {
 
 - (void)performWithParams:(CGFloat *)params
               commandType:(CommandType)type
-                  forPath:(SKUBezierPath *)path;
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString*) identifier;
 @end
 
 @implementation SVGCommandImpl
@@ -66,19 +68,21 @@ typedef enum : NSInteger {
 
 - (void)processCommandString:(NSString *)commandString
              withPrevCommand:(NSString *)prevCommand
-                     forPath:(SKUBezierPath *)path {
+                     forPath:(SKUBezierPath *)path
+           factoryIdentifier:(NSString *)identifier{
     self.prevCommand        = prevCommand;
     NSString *commandLetter = [commandString substringToIndex:1];
     CGFloat *params         = [self getCommandParameters:commandString];
     [self performWithParams:params
                 commandType:[self isAbsoluteCommand:commandLetter] ? Absolute : Relative
-                    forPath:path];
+                    forPath:path factoryIdentifier:identifier];
     free(params);
 }
 
 - (void)performWithParams:(CGFloat *)params
               commandType:(CommandType)type
-                  forPath:(SKUBezierPath *)path {
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier{
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
                                            NSStringFromSelector(_cmd)]
@@ -92,7 +96,10 @@ typedef enum : NSInteger {
 
 @implementation SVGMoveCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     if (type == Absolute) {
         [path moveToPoint:CGPointMake(params[0], params[1])];
     } else {
@@ -111,7 +118,10 @@ typedef enum : NSInteger {
 
 @implementation SVGLineToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     if (type == Absolute) {
         [path addLineToPointSKU:CGPointMake(params[0], params[1])];
         
@@ -129,7 +139,10 @@ typedef enum : NSInteger {
 
 @implementation SVGHorizontalLineToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     if (type == Absolute) {
         [path addLineToPointSKU:CGPointMake(params[0], path.currentPoint.y)];
         
@@ -147,7 +160,10 @@ typedef enum : NSInteger {
 
 @implementation SVGVerticalLineToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier{
     if (type == Absolute) {
         [path addLineToPointSKU:CGPointMake(path.currentPoint.x, params[0])];
         
@@ -165,7 +181,10 @@ typedef enum : NSInteger {
 
 @implementation SVGCurveToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     if (type == Absolute) {
         [path addCurveToPointSKU:CGPointMake(params[4], params[5])
                    controlPoint1:CGPointMake(params[0], params[1])
@@ -187,7 +206,10 @@ typedef enum : NSInteger {
 
 @implementation SVGSmoothCurveToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     
     CGPoint firstControlPoint = CGPointMake(path.currentPoint.x, path.currentPoint.y);
     
@@ -248,7 +270,10 @@ typedef enum : NSInteger {
 
 @implementation SVGQuadraticCurveToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     
     if (type == Absolute) {
         [path addQuadCurveToPoint:CGPointMake(params[2], params[3])
@@ -268,7 +293,10 @@ typedef enum : NSInteger {
 
 @implementation SVGSmoothQuadraticCurveToCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier {
     CGPoint firstControlPoint = CGPointMake(path.currentPoint.x, path.currentPoint.y);
     
     if (self.prevCommand && self.prevCommand.length > 0) {
@@ -309,7 +337,10 @@ typedef enum : NSInteger {
 
 @implementation SVGClosePathCommand
 
-- (void)performWithParams:(CGFloat *)params commandType:(CommandType)type forPath:(SKUBezierPath *)path {
+- (void)performWithParams:(CGFloat *)params
+              commandType:(CommandType)type
+                  forPath:(SKUBezierPath *)path
+        factoryIdentifier:(NSString *)identifier{
     [path closePath];
 }
 
@@ -321,10 +352,27 @@ typedef enum : NSInteger {
     NSDictionary *commands;
 }
 + (SVGCommandFactory *)defaultFactory;
++ (SVGCommandFactory *)factoryWithIdentifier:(NSString*) string;
 - (id<SVGCommand>)commandForCommandLetter:(NSString *)commandLetter;
 @end
 
 @implementation SVGCommandFactory
+
+static NSMutableDictionary * factories;
+
++ (SVGCommandFactory *)factoryWithIdentifier:(NSString*) string {
+    if (factories == nil) {
+        factories = [[NSMutableDictionary alloc] init];
+    }
+    
+    if (factories[string] != nil ) {
+        return factories[string];
+    } else {
+        factories[string] = [[SVGCommandFactory alloc] init];
+        return factories[string];
+    }
+    
+}
 
 + (SVGCommandFactory *)defaultFactory {
     static SVGCommandFactory *instance = nil;
@@ -377,7 +425,8 @@ typedef enum : NSInteger {
 
 + (void)processCommandString:(NSString *)commandString
        withPrevCommandString:(NSString *)prevCommand
-                     forPath:(SKUBezierPath*)path {
+                     forPath:(SKUBezierPath*)path
+       withFactoryIdentifier:(NSString*) identifier{
     
     if (!commandString || commandString.length <= 0) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
@@ -386,10 +435,10 @@ typedef enum : NSInteger {
     }
     
     NSString *commandLetter = [commandString substringToIndex:1];
-    id<SVGCommand> command  = [[SVGCommandFactory defaultFactory] commandForCommandLetter:commandLetter];
+    id<SVGCommand> command  = [[SVGCommandFactory factoryWithIdentifier:identifier] commandForCommandLetter:commandLetter];
     
     if (command) {
-        [command processCommandString:commandString withPrevCommand:prevCommand forPath:path];
+        [command processCommandString:commandString withPrevCommand:prevCommand forPath:path factoryIdentifier:identifier];
     } else {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:[NSString stringWithFormat:@"Unknown command %@", commandLetter]
@@ -408,7 +457,7 @@ typedef enum : NSInteger {
     return _commandRegex;
 }
 
-+ (SKUBezierPath *)addPathWithSVGString:(NSString *)svgString toPath:(SKUBezierPath *)aPath {
++ (SKUBezierPath *)addPathWithSVGString:(NSString *)svgString toPath:(SKUBezierPath *)aPath factoryIdentifier: (NSString*) identifier {
     if (aPath && svgString && svgString.length > 0) {
         NSRegularExpression *regex              = [self commandRegex];
         __block NSTextCheckingResult *prevMatch = nil;
@@ -424,7 +473,7 @@ typedef enum : NSInteger {
 																						length)];
                     
                     
-                    [self processCommandString:commandString withPrevCommandString:prevCommand forPath:aPath];
+                    [self processCommandString:commandString withPrevCommandString:prevCommand forPath:aPath withFactoryIdentifier:identifier];
                     prevCommand = nil;
                     prevMatch = nil;
                     prevCommand = commandString;
@@ -437,17 +486,17 @@ typedef enum : NSInteger {
         
         NSString *result = [svgString substringWithRange:NSMakeRange(prevMatch.range.location, svgString.length - prevMatch.range.location)];
         
-        [self processCommandString:result withPrevCommandString:prevCommand forPath:aPath];
+        [self processCommandString:result withPrevCommandString:prevCommand forPath:aPath withFactoryIdentifier:identifier];
     }
     return aPath;
 }
 
-- (void)addPathFromSVGString:(NSString *)svgString {
-    [SKUBezierPath addPathWithSVGString:svgString toPath:self];
+- (void)addPathFromSVGString:(NSString *)svgString factoryIdentifier:(NSString*) identifier{
+    [SKUBezierPath addPathWithSVGString:svgString toPath:self factoryIdentifier:identifier];
 }
 
-+ (SKUBezierPath *)bezierPathWithSVGString:(NSString *)svgString {
-    return [self addPathWithSVGString:svgString toPath:[SKUBezierPath bezierPath]];
++ (SKUBezierPath *)bezierPathWithSVGString:(NSString *)svgString factoryIdentifier:(NSString*) identifier{
+    return [self addPathWithSVGString:svgString toPath:[SKUBezierPath bezierPath] factoryIdentifier:identifier];
 }
 
 @end

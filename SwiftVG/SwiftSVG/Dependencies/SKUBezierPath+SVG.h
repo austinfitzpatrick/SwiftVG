@@ -16,8 +16,8 @@
 
 @interface SKUBezierPath (SVG)
 
-- (void)addPathFromSVGString:(NSString *)svgString;
-+ (SKUBezierPath *)bezierPathWithSVGString:(NSString *)svgString;
+- (void)addPathFromSVGString:(NSString *)svgString factoryIdentifier:(NSString*) identifier;
++ (SKUBezierPath *)bezierPathWithSVGString:(NSString *)svgString factoryIdentifier:(NSString*) identifier;
 
 @end
 

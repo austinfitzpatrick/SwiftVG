@@ -30,16 +30,7 @@ class SVGLinearGradient: SVGGradient {
         self.startPoint = startPoint
         self.endPoint = endPoint
         if let gradientTransformString = gradientTransform {
-            let scanner = NSScanner(string: gradientTransformString)
-            scanner.scanString("matrix(", intoString: nil)
-            var a:Float = 0, b:Float = 0, c:Float = 0, d:Float = 0, tx:Float = 0, ty:Float = 0
-            scanner.scanFloat(&a)
-            scanner.scanFloat(&b)
-            scanner.scanFloat(&c)
-            scanner.scanFloat(&d)
-            scanner.scanFloat(&tx)
-            scanner.scanFloat(&ty)
-            transform = CGAffineTransformMake(CGFloat(a), CGFloat(b), CGFloat(c), CGFloat(d), CGFloat(tx), CGFloat(ty))
+            transform = SVGParser.transformFromString(gradientTransformString)//CGAffineTransformMake(CGFloat(a), CGFloat(b), CGFloat(c), CGFloat(d), CGFloat(tx), CGFloat(ty))
         } else {
             transform = CGAffineTransformIdentity
         }
@@ -68,8 +59,8 @@ class SVGLinearGradient: SVGGradient {
     ///
     /// :param: offset the offset location of the stop
     /// :color: the color to blend from/towards at this stop
-    func addStop(offset:CGFloat, color:UIColor){
-        stops.append(GradientStop(offset: offset, color: color))
+    func addStop(offset:CGFloat, color:UIColor, opacity:CGFloat){
+        stops.append(GradientStop(offset: offset, color: color, opacity:opacity))
     }
     
     
@@ -86,11 +77,7 @@ class SVGLinearGradient: SVGGradient {
     /// :param: opacity The opacity at which to draw the gradient
     /// :returns: A CGGradientRef ready for drawing to a canvas
     private func CGGradientWithOpacity(opacity:CGFloat) -> CGGradientRef {
-        if opacity != 1 {
-            return CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), stops.map{$0.color.colorWithAlphaComponent(opacity).CGColor}, stops.map{$0.offset})
-        } else {
-            return CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), stops.map{$0.color.CGColor}, stops.map{$0.offset})
-        }
+        return CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), stops.map{$0.color.colorWithAlphaComponent(opacity * $0.opacity).CGColor}, stops.map{$0.offset})
     }
     
     /// Removes a stop previously added to the gradient.
